@@ -3,8 +3,8 @@ STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 MOVE_DISTANCE = 20
 UP = 90
 DOWN = 270
-LEFT = 180
 RIGHT = 0
+LEFT = 180
 
 class Snake:
 
@@ -16,11 +16,18 @@ class Snake:
     def create_snake(self):
         """Create a snake in fixed positions defined in Snake.py"""
         for position in STARTING_POSITIONS:
-            new_segment = Turtle(shape="square")
-            new_segment.color("white")
-            new_segment.penup()
-            new_segment.goto(position)
-            self.segments.append(new_segment)
+            self.add_segments(position)
+
+    def add_segments(self, position):
+        new_segment = Turtle(shape="square")
+        new_segment.color("white")
+        new_segment.penup()
+        new_segment.goto(position)
+        self.segments.append(new_segment)
+
+    def extend(self):
+        """Add a new segment to the snake"""
+        self.add_segments(self.segments[-1].position())
 
     def move(self):
         """Move the snake--the last segment moves first"""
