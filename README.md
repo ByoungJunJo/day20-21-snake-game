@@ -82,3 +82,106 @@ while game_is_on:
 
 screen.exitonclick()
 ```
+
+## Day 21
+### Challenges
+- Create food for the snake
+```
+from turtle import Turtle
+import random
+
+
+class Food(Turtle):
+
+    def __init__(self):
+        super().__init__()
+        self.shape('circle')
+        self.penup()
+        self.shapesize(stretch_wid=0.5, stretch_len=0.5)
+        self.color('blue')
+        self.speed('fastest')
+        self.goto(x=random.randint(-280, 280), y=random.randint(-280, 280))
+
+    def refresh(self):
+        self.goto(x=random.randint(-280, 280), y=random.randint(-280, 280))
+```
+- Create a scoreboard
+```
+from turtle import Turtle
+ALIGNMENT = "center"
+FONT = ("Courier", 24, "normal")
+
+class Scoreboard(Turtle):
+
+    def __init__(self):
+        super().__init__()
+        self.hideturtle()
+        self.penup()
+        self.color("white")
+        self.goto(0, 260)
+        self.score = 0
+        self.update_scoreboard()
+
+    def update_scoreboard(self):
+        self.write(f"Score: {self.scofrom turtle import Turtle
+ALIGNMENT = "center"
+FONT = ("Courier", 24, "normal")
+
+class Scoreboard(Turtle):
+
+    def __init__(self):
+        super().__init__()
+        self.hideturtle()
+        self.penup()
+        self.color("white")
+        self.goto(0, 260)
+        self.score = 0
+        self.update_scoreboard()
+
+    def update_scoreboard(self):
+        self.write(f"Score: {self.score}", move=False, align=ALIGNMENT, font=FONT)
+
+    def increase_score(self):
+        self.clear()
+        self.score += 1
+        self.update_scoreboard()
+
+    def game_over(self):
+        self.goto(0, 0)
+        self.write(f"GAME OVER.", move=False, align=ALIGNMENT, font=FONT)re}", move=False, align=ALIGNMENT, font=FONT)
+
+    def increase_score(self):
+        self.clear()
+        self.score += 1
+        self.update_scoreboard()
+
+    def game_over(self):
+        self.goto(0, 0)
+        self.write(f"GAME OVER.", move=False, align=ALIGNMENT, font=FONT)
+```
+- Detect collision with food, wall, and tail
+```
+# Detect collision with food
+if snake.head.distance(food) < 15:
+    food.refresh()   # Update new x and y coordinates
+    scoreboard.increase_score()
+    snake.extend()
+
+# Detect collision with wall.
+if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+    game_is_on = False
+    scoreboard.game_over()
+
+# Detect collision with tail
+for segment in snake.segments[1:]:
+    # If head collides with any segment in the tail:
+    if snake.head.distance(segment) < 10:
+        game_is_on = False
+        scoreboard.game_over()
+
+```
+
+### Key Takeaways
+- Review class and object oriented programming in Python
+- Reptition and simplicity when it comes to practice
+- Google, StackOverflow, etc to figure out things when you get stuck
